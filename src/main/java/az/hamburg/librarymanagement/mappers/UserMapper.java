@@ -2,9 +2,11 @@ package az.hamburg.librarymanagement.mappers;
 
 import az.hamburg.librarymanagement.entity.User;
 import az.hamburg.librarymanagement.model.request.UserCreateRequest;
+import az.hamburg.librarymanagement.model.request.UserRegistrationRequest;
 import az.hamburg.librarymanagement.model.request.UserUpdateRequest;
 import az.hamburg.librarymanagement.model.response.UserCreateResponse;
 import az.hamburg.librarymanagement.model.response.UserReadResponse;
+import az.hamburg.librarymanagement.model.response.UserRegistrationResponse;
 import az.hamburg.librarymanagement.model.response.UserUpdateResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -27,5 +29,9 @@ public interface UserMapper {
     User updateRequestToEntity(UserUpdateRequest updateRequest);
 
     UserUpdateResponse entityToUpdateResponse(User user);
+
+    User registrationRequestToEntity(UserRegistrationRequest registration);
+
+    UserRegistrationResponse entityToRegistrationResponse(User user);
 
 }
