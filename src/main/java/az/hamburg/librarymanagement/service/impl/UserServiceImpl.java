@@ -6,6 +6,7 @@ import az.hamburg.librarymanagement.exception.handler.UserAlreadyExistsException
 import az.hamburg.librarymanagement.exception.handler.UserNotFoundException;
 import az.hamburg.librarymanagement.mappers.UserMapper;
 import az.hamburg.librarymanagement.model.request.UserCreateRequest;
+import az.hamburg.librarymanagement.model.request.UserLoginRequest;
 import az.hamburg.librarymanagement.model.request.UserRegistrationRequest;
 import az.hamburg.librarymanagement.model.request.UserUpdateRequest;
 import az.hamburg.librarymanagement.model.response.UserCreateResponse;
@@ -96,6 +97,21 @@ public class UserServiceImpl implements UserService {
         log.info("Registration Response : {}", response);
 
         return response;
+    }
+
+    @Override
+    public String loginUser(UserLoginRequest request) {
+
+        String userEmail = request.getEmail();
+        String password = request.getPassword();
+        User foundUser = userRepository.findByEmailAndPassword(userEmail, password)
+                .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+        if (foundUser != null) {
+            return "login successful";
+        }
+        //istifadeciden login melumatlari almaq, email password
+        //bele hesabin varligini yoxlamaq, yoxsa error atmaq varsa "login succesful" mesaji
+        return "login failed";
     }
 
 }
