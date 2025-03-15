@@ -1,6 +1,7 @@
 package az.hamburg.librarymanagement.controller;
 
 import az.hamburg.librarymanagement.model.request.UserCreateRequest;
+import az.hamburg.librarymanagement.model.request.UserLoginRequest;
 import az.hamburg.librarymanagement.model.request.UserRegistrationRequest;
 import az.hamburg.librarymanagement.model.request.UserUpdateRequest;
 import az.hamburg.librarymanagement.model.response.UserCreateResponse;
@@ -69,6 +70,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserRegistrationResponse> signUp(@RequestBody UserRegistrationRequest request) {
         return ResponseEntity.ok(userService.registerUser(request));
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> login(@RequestBody UserLoginRequest request) {
+        return ResponseEntity.ok(userService.loginUser(request));
     }
 
 }

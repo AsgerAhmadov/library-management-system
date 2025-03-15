@@ -1,6 +1,7 @@
 package az.hamburg.librarymanagement.service;
 
 import az.hamburg.librarymanagement.model.request.UserCreateRequest;
+import az.hamburg.librarymanagement.model.request.UserLoginRequest;
 import az.hamburg.librarymanagement.model.request.UserRegistrationRequest;
 import az.hamburg.librarymanagement.model.request.UserUpdateRequest;
 import az.hamburg.librarymanagement.model.response.UserCreateResponse;
@@ -23,5 +24,7 @@ public interface UserService {
     UserUpdateResponse update(Long id , UserUpdateRequest updateRequest);
 
     UserRegistrationResponse registerUser(UserRegistrationRequest request);
+
+    String loginUser(UserLoginRequest request);
 
 }
