@@ -23,10 +23,10 @@ public class BookController {
 
     private final BookService bookService;
 
-    @PostMapping("/user/{id}")
+    @PostMapping("/user/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public BookCreateResponse create(@PathVariable Long id ,@RequestBody BookCreateRequest createRequest) {
-        return bookService.create(id , createRequest);
+    public BookCreateResponse create(@PathVariable(name = "userId") Long userId ,@RequestBody BookCreateRequest createRequest) {
+        return bookService.create(userId , createRequest);
     }
 
     @GetMapping("/{id}")

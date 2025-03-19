@@ -1,8 +1,11 @@
 package az.hamburg.librarymanagement.service.impl;
 
 import az.hamburg.librarymanagement.entity.Book;
+import az.hamburg.librarymanagement.entity.Roles;
+import az.hamburg.librarymanagement.exception.CustomException;
 import az.hamburg.librarymanagement.exception.error.ErrorMessage;
 import az.hamburg.librarymanagement.exception.handler.BookNotFoundException;
+import az.hamburg.librarymanagement.exception.handler.UnAuthorizationUserException;
 import az.hamburg.librarymanagement.mappers.BookMapper;
 import az.hamburg.librarymanagement.model.request.BookCreateRequest;
 import az.hamburg.librarymanagement.model.request.BookUpdateRequest;
@@ -29,12 +32,14 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
-    public BookCreateResponse create(Long id ,BookCreateRequest createRequest) {
-        UserReadResponse foundedUser = userServiceImpl.getId(id);
-        Book book = bookMapper.createRequestToEntity(createRequest);
-        book.setId(foundedUser.getId());
-        bookRepository.save(book);
-        return bookMapper.entityToCreateResponse(book);
+    public BookCreateResponse create(Long userId ,BookCreateRequest createRequest) {
+        UserReadResponse foundedUser = userServiceImpl.getId(userId);
+        if (foundedUser.getRole().equals(Roles.ADMIN.name())) {
+            Book book = bookMapper.createRequestToEntity(createRequest);
+            bookRepository.save(book);
+            return bookMapper.entityToCreateResponse(book);
+        }
+         throw new UnAuthorizationUserException(ErrorMessage.UNAUTHORIZED , HttpStatus.UNAUTHORIZED.name());
     }
 
     @Override

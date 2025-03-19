@@ -13,4 +13,5 @@ public class UserReadResponse {
     private String password;
     private  String username;
     private String pin;
+    private String role;
 }

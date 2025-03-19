@@ -12,9 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("v1/books")
+@RequestMapping("v1/libraries")
 @RequiredArgsConstructor
-@Tag(name = "Book Controller API", description = "Managing Book Apis")
+@Tag(name = "Library Controller API", description = "Managing Library Apis")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class LibraryController {
 
