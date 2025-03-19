@@ -1,5 +1,6 @@
 package az.hamburg.librarymanagement.service.impl;
 
+import az.hamburg.librarymanagement.entity.Roles;
 import az.hamburg.librarymanagement.entity.User;
 import az.hamburg.librarymanagement.exception.error.ErrorMessage;
 import az.hamburg.librarymanagement.exception.handler.UserAlreadyExistsException;
@@ -89,6 +90,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = userMapper.registrationRequestToEntity(request);
+        user.setRole(Roles.USER.name());
         log.info("User Entity : {}", user);
 
         userRepository.save(user);
